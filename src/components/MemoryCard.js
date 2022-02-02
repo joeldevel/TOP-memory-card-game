@@ -1,8 +1,9 @@
 import './memorycard.css';
 
 function MemoryCard(props) {
+    console.log(props)
     return (
-        <div className="memorycard">This is a memory card</div>
+        <div className="memorycard"><span>{props.card.img}</span></div>
     );
 }
 

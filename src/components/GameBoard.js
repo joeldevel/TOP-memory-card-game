@@ -4,7 +4,7 @@ import './gameboard.css';
 function GameBoard(props) {
     return (
         <div className="gameboard">
-            {props.cards.map(card=><MemoryCard key={card}/>)}
+            {props.cards.map(card=><MemoryCard key={card.id} card={card}/>)}
 
         </div>
     );

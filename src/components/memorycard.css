@@ -1,4 +1,11 @@
 .memorycard {
     border: 1px solid #000;
     background: #fff;
+    display: grid;
+    place-items: center;
+}
+
+.memorycard span {
+    font-size: 100px;
+    line-height: 0.2;
 }
