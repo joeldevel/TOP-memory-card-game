@@ -2,6 +2,7 @@ import {useState} from 'react';
 
 import ScoreDisplay from './components/ScoreDisplay';
 import GameBoard from './components/GameBoard';
+import bgPattern from './bg-pattern.png';
 
 const cardsArray = [
     {id: 1, img: '\u{1F33B}'},
@@ -28,7 +29,7 @@ function App() {
     }
 
     const checkHand = (id) => {
-        console.log(cardsPicked);
+        // console.log(cardsPicked);
         if(cardsPicked.find(card => card == id)) {
             // console.log("=========== card already taken, game over");
             setCardsPicked([]);
@@ -53,7 +54,7 @@ function App() {
     }
 
     return (
-    <div className="app">
+    <div className="app" style={{background: `url(${bgPattern})`}}>
         <h1>memory card game</h1>
         <ScoreDisplay score={score}/>
         <GameBoard cards={cards} handleClick={handleClick}/>
