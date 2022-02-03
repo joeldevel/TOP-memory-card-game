@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 
 import ScoreDisplay from './components/ScoreDisplay';
 import GameBoard from './components/GameBoard';
@@ -23,6 +23,16 @@ function App() {
     const [cardsPicked, setCardsPicked] = useState([]);
     const [score, setScore] = useState(0);
     const [hideModal, setHideModal] = useState(true);
+    const [playerWins, setPlayerWins] = useState(false);
+
+    useEffect(()=> {
+        // console.log(cardsPicked.length)
+        if(score === cards.length) {
+            setPlayerWins(true);
+            setHideModal(false);
+            return;
+        }
+    },[score]);
 
     const handleClick = (e) => {
         checkHand(e.currentTarget.dataset.id);
@@ -45,6 +55,7 @@ function App() {
             newCards.sort( ()=>Math.random()-0.5 );
             setCards(newCards);
             setScore(p => p+1);
+
         }
     }
 
@@ -55,12 +66,16 @@ function App() {
 
     return (
     <div className="app" style={{background: `url(${bgPattern})`}}>
-        <h1>memory card game</h1>
+        <div>
+            <h1>memory card game</h1>
+            <p>you have to click on every image but only once!</p>
+        </div>
         <ScoreDisplay score={score}/>
         <GameBoard cards={cards} handleClick={handleClick}/>
         <div className={`modal  ${hideModal ? "modal-hidden": ""}`}>
             <div className="modal-msg">
-                <h2> your score is {score}/{cards.length} </h2>
+                <h2> {playerWins ?"Congratulations!!! your won":
+                     `your score is ${score}/${cards.length}` }</h2>
                 <button className="button-play-again" onClick={()=>playAgain()}>Play again?</button>
             </div>
         </div>
