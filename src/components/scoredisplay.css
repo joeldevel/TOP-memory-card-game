@@ -1,0 +1,6 @@
+.score-display-container {
+    border: 5px solid #000;
+    align-self: center;
+    justify-self: center;
+    padding: 10px 20px;
+}

@@ -17,16 +17,54 @@ const cardsArray = [
     {id: 11, img:'\u{1F439}'},
     {id: 12, img:'\u{1F438}'},
 ];
-const score = 1;
 function App() {
     const [cards, setCards] = useState(cardsArray);
-  return (
+    const [cardsPicked, setCardsPicked] = useState([]);
+    const [score, setScore] = useState(0);
+    const [hideModal, setHideModal] = useState(true);
+
+    const handleClick = (e) => {
+        checkHand(e.currentTarget.dataset.id);
+    }
+
+    const checkHand = (id) => {
+        console.log(cardsPicked);
+        if(cardsPicked.find(card => card == id)) {
+            // console.log("=========== card already taken, game over");
+            setCardsPicked([]);
+            setHideModal(false);
+            // return alert('game over');
+        } else {
+            const newCardsPicked = [...cardsPicked];
+            newCardsPicked.push(id);
+            setCardsPicked(newCardsPicked);
+            const newCards = [...cards];
+            // taken from
+            //https://www.geeksforgeeks.org/how-to-shuffle-an-array-using-javascript/
+            newCards.sort( ()=>Math.random()-0.5 );
+            setCards(newCards);
+            setScore(p => p+1);
+        }
+    }
+
+    const playAgain = () => {
+        setHideModal(true);
+        setScore(0);
+    }
+
+    return (
     <div className="app">
         <h1>memory card game</h1>
         <ScoreDisplay score={score}/>
-        <GameBoard cards={cards}/>
+        <GameBoard cards={cards} handleClick={handleClick}/>
+        <div className={`modal  ${hideModal ? "modal-hidden": ""}`}>
+            <div className="modal-msg">
+                <h2> your score is {score}/{cards.length} </h2>
+                <button className="button-play-again" onClick={()=>playAgain()}>Play again?</button>
+            </div>
+        </div>
     </div>
-  );
+    );
 }
 
 export default App;

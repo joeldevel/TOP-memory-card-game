@@ -1,6 +1,8 @@
+import './scoredisplay.css';
+
 function ScoreDisplay(props) {
     return (
-        <div>
+        <div className="score-display-container">
             <h2>your score is: {props.score}</h2>
         </div>
     );
